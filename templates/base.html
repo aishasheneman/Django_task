@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}إبداع تك{% endblock %}</title>
+
+    {% block extra_css %}{% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="{% url 'home' %}">إبداع<span>تك</span></a>
+            </div>
+            
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">الرئيسية</a></li>
+                    <li><a href="{% url 'product_list' %}" class="{% if request.resolver_match.url_name == 'product_list' %}active{% endif %}">المنتجات</a></li>
+                    <li><a href="{% url 'customer_list' %}" class="{% if request.resolver_match.url_name == 'customer_list' %}active{% endif %}">العملاء</a></li>
+                    <li><a href="{% url 'delivery_order_list' %}" class="{% if request.resolver_match.url_name == 'delivery_order_list' %}active{% endif %}">التوصيل</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-cta">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="btn btn-primary" style="background-color: #ef4444; border: none;">تسجيل خروج</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">تسجيل الدخول</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="logo"><a href="#">إبداع<span>تك</span></a></div>
+                <p>نقدم حلولاً رقمية متكاملة لرفع كفاءة أعمالك.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#">الشروط والأحكام</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h3>تابعنا على</h3>
+                <div class="social-icons">
+                    <a href="#">X</a>
+                    <a href="#">In</a>
+                    <a href="#">Insta</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 إبداع تك. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

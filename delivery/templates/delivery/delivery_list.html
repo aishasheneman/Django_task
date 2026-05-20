@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}طلبات التوصيل - إبداع تك{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <style>
+        .table-container { overflow-x: auto; margin-top: 20px; background: #fff; padding: 20px; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { background: #f8fafc; padding: 15px; text-align: right; border-bottom: 2px solid #e2e8f0; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; }
+        .btn-action { padding: 5px 10px; border-radius: 6px; font-size: 0.85rem; text-decoration: none; display: inline-block; }
+    </style>
+{% endblock %}
+
+{% block content %}
+<main class="main-content-area animate-fade-in">
+    <div class="container">
+        
+        {% if user.is_authenticated %}
+            <div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div class="header-title-wrapper">
+                    <h1>طلبات التوصيل</h1>
+                    <p>إدارة ومتابعة شحنات العملاء.</p>
+                </div>
+                <a href="{% url 'delivery_create' %}" class="btn btn-primary">+ طلب توصيل جديد</a>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>العميل</th>
+                            <th>المنتج</th>
+                            <th>الحالة</th>
+                            <th>المندوب</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.customer.first_name }} {{ order.customer.last_name }}</td>
+                            <td>{{ order.product.name }}</td>
+                            <td>
+                                <span class="badge" style="padding: 5px 10px; border-radius: 20px; background: #e0e7ff; color: #4338ca;">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ order.delivery_driver_name|default:"غير محدد" }}</td>
+                            <td>
+                                <a href="{% url 'delivery_update' order.pk %}" class="btn-action" style="background: #e2e8f0; color: #334155;">تعديل</a>
+                                <form action="{% url 'delivery_delete' order.pk %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-action" style="background: #fee2e2; color: #dc2626; border: none; cursor: pointer;">حذف</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
+                                لا توجد طلبات توصيل مسجلة حالياً.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <div class="empty-state-card" style="text-align: center; margin-top: 100px;">
+                <div style="font-size: 50px; margin-bottom: 20px;">🔒</div>
+                <h2>يرجى تسجيل الدخول</h2>
+                <p>عذراً، هذه الصفحة مخصصة للمستخدمين المسجلين فقط.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary" style="margin-top: 20px;">تسجيل الدخول</a>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

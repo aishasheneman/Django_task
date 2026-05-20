@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="form-page-wrapper">
+    <div class="container" style="max-width: 600px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 15px;">
+        <h2>{{ title }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">حفظ</button>
+            <a href="{% url 'delivery_order_list' %}" class="btn" style="background:#e2e8f0;">إلغاء</a>
+        </form>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,412 @@
+
+/* تأثير الأنيميشن */
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* تأثير الـ Hover على الكروت */
+.product-card-item {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #4f46e5;
+}
+
+/* التنسيقات الأخرى تبقى كما هي... */
+/* تنسيقات عامة للهيكل ورأس الصفحة */
+.main-content-area {
+    padding: 3rem 0;
+    min-height: 70vh;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.header-title-wrapper h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.header-title-wrapper p {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+/* بطاقات الإحصائيات */
+.stats-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat-box {
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    min-width: 140px;
+}
+
+.stat-box .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 0.25rem;
+}
+
+.stat-box .stat-value-total {
+    font-size: 1.5rem;
+    color: #0f172a;
+}
+
+.stat-box .stat-value-price {
+    font-size: 1.5rem;
+    color: #4f46e5;
+}
+
+/* شريط الفلترة والبحث */
+.filter-toolbar {
+    background: #fff;
+    padding: 1.25rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-inputs {
+    display: flex;
+    gap: 1rem;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    padding: 0.65rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 320px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+}
+
+.filter-select {
+    padding: 0.65rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    background: #fff;
+}
+
+.add-product-btn {
+    display: inline-block;
+    padding: 0.65rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+/* شبكة المنتجات والكروت */
+.products-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-icon-box {
+    background: #f5f3ff;
+    color: #4f46e5;
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.product-title {
+    margin-bottom: 0.5rem;
+}
+
+.product-desc {
+    margin-bottom: 1.5rem;
+}
+
+/* ذيل كارت المنتج والأزرار */
+.card-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.stock-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.action-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.edit-action-btn {
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+    background: #f1f5f9;
+    color: #334155;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.delete-action-btn {
+    padding: 0.5rem;
+    background: #fef2f2;
+    color: #ef4444;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: background 0.2s;
+}
+
+/* كروت الحالة الفارغة */
+.empty-state-card {
+    grid-column: 1 / -1;
+    background: #fff;
+    border: 2px dashed #cbd5e1;
+    padding: 3rem;
+    text-align: center;
+    border-radius: 16px;
+}
+
+.empty-state-card p {
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* نافذة تأكيد الحذف المنبثقة (Modal) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+}
+
+.modal-content-box {
+    background: white;
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.modal-content-box h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content-box p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.modal-actions-wrapper {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.modal-cancel-btn {
+    flex: 1;
+    padding: 0.65rem;
+    background: #f1f5f9;
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.modal-confirm-btn {
+    flex: 1;
+    padding: 0.65rem;
+    background: #ef4444;
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* تنسيحات صفحة الفورم */
+.form-page-wrapper {
+    background-color: #f8fafc;
+    padding: 4rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.form-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.form-header {
+    background: #f8fafc;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.form-header .cancel-link {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.main-django-form {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.django-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.django-form-row label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.field-error-msg {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    font-weight: 600;
+}
+
+.form-actions-footer {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1.25rem;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.form-cancel-btn {
+    padding: 0.65rem 1.25rem;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    text-align: center;
+}
+
+.form-submit-btn {
+    padding: 0.65rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* تنسيق الحقول لتصبح جذابة */
+.django-form-row input, 
+.django-form-row select, 
+.django-form-row textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.django-form-row input:focus, 
+.django-form-row select:focus, 
+.django-form-row textarea:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}

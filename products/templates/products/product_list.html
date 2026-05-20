@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}كتالوج المنتجات الرقمية - إبداع تك{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-content-area animate-fade-in">
+    <div class="container">
+        
+        <div class="page-header">
+            <div class="header-title-wrapper">
+                <h1>كتالوج المنتجات الرقمية</h1>
+                <p>استعرض ونظم باقاتك التفاعلية بكل سهولة وسرعة.</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-label">العدد الإجمالي</span>
+                    <strong class="stat-value-total">{{ total_count }}</strong>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">القيمة الإجمالية</span>
+                    <strong class="stat-value-price">${{ total_value|floatformat:2 }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-toolbar">
+            <div class="filter-inputs">
+                <input type="text" id="searchBar" oninput="filterProducts()" placeholder="البحث باسم المنتج أو الوصف..." class="search-input">
+                
+                <select id="categoryFilter" onchange="filterProducts()" class="filter-select">
+                    <option value="الكل">جميع التصنيفات</option>
+                    <option value="تصميم واجهات">تصميم واجهات</option>
+                    <option value="برمجيات وتطبيقات">برمجيات وتطبيقات</option>
+                    <option value="استشارات رقمية">استشارات رقمية</option>
+                    <option value="خدمات سحابية">خدمات سحابية</option>
+                </select>
+            </div>
+            
+            <div>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'product_create' %}" class="btn btn-primary add-product-btn">+ إضافة منتج جديد</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="productsGrid" class="products-grid-layout">
+            {% for product in products %}
+                <div class="group product-card-item" data-name="{{ product.name|lower }}" data-desc="{{ product.description|lower }}" data-category="{{ product.category }}">
+                    {% if product.category %}
+                        <span class="category-badge">{{ product.category }}</span>
+                    {% else %}
+                        <span class="category-badge">عام</span>
+                    {% endif %}
+                    
+                    <div class="card-body-wrapper">
+                        <div class="product-icon-box">📦</div>
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-desc">{{ product.description }}</p>
+                    </div>
+                    
+                    <div class="product-card-footer">
+                        <div class="card-meta-row">
+                            <div class="product-price-tag">${{ product.price }}</div>
+                            <span class="stock-label">المخزون: {{ product.stock }}</span>
+                        </div>
+                        
+                        {% if user.is_authenticated %}
+                            <div class="action-buttons-grid">
+                                <a href="{% url 'product_update' product.pk %}" class="edit-action-btn">تعديل</a>
+{% url 'product_delete' product.pk as delete_url %}
+<button onclick="triggerDelete('{{ delete_url }}')" class="delete-action-btn">حذف</button>                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-state-card">
+                    <p>لا توجد منتجات مسجلة في الكتالوج حالياً.</p>
+                </div>
+            {% endfor %}
+            
+            <div id="noResultsCard" class="empty-state-card" style="display: none;">
+                <p>لم يتم العثور على نتائج مطابقة للبحث.</p>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% if user.is_authenticated %}
+<div id="confirmDialog" class="modal-overlay">
+    <div class="modal-content-box">
+        <h3>تأكيد حذف المنتج</h3>
+        <p>هل أنت متأكد من رغبتك في حذف هذا المنتج بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء.</p>
+        <form id="deleteForm" method="POST" action="#">
+            {% csrf_token %}
+            <div class="modal-actions-wrapper">
+                <button type="button" onclick="closeConfirmDialog()" class="modal-cancel-btn">إلغاء</button>
+                <button type="submit" class="modal-confirm-btn">نعم، احذف</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    function filterProducts() {
+        const query = document.getElementById('searchBar').value.trim().toLowerCase();
+        const selectedCategory = document.getElementById('categoryFilter').value;
+        const cards = document.querySelectorAll('.product-card-item');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const name = card.getAttribute('data-name') || '';
+            const desc = card.getAttribute('data-desc') || '';
+            const category = card.getAttribute('data-category') || '';
+
+            const matchesSearch = name.includes(query) || desc.includes(query);
+            const matchesCategory = selectedCategory === "الكل" || category === selectedCategory;
+
+            if (matchesSearch && matchesCategory) {
+                card.style.display = 'flex';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        const noResults = document.getElementById('noResultsCard');
+        if (visibleCount === 0 && cards.length > 0) {
+            noResults.style.display = 'block';
+        } else {
+            noResults.style.display = 'none';
+        }
+    }
+
+    function triggerDelete(deleteUrl) {
+        const form = document.getElementById('deleteForm');
+        const dialog = document.getElementById('confirmDialog');
+        if (form && dialog) {
+            form.action = deleteUrl;
+            dialog.style.display = 'flex';
+        }
+    }
+
+    function closeConfirmDialog() {
+        const dialog = document.getElementById('confirmDialog');
+        if (dialog) {
+            dialog.style.display = 'none';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const dialog = document.getElementById('confirmDialog');
+        if (dialog) {
+            dialog.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}قائمة العملاء - إبداع تك{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-content-area animate-fade-in">
+    <div class="container">
+        
+        {% if user.is_authenticated %}
+            <div class="page-header">
+                <div class="header-title-wrapper">
+                    <h1>إدارة العملاء</h1>
+                    <p>قائمة بجميع عملائنا المسجلين في النظام.</p>
+                </div>
+            </div>
+
+            <div class="products-grid-layout">
+                {% for customer in customers %}
+                    <div class="group product-card-item">
+                        <div class="card-body-wrapper">
+                            <div class="product-icon-box">👤</div>
+                            <h3 class="product-title">{{ customer.first_name }} {{ customer.last_name }}</h3>
+                            <p class="product-desc"><strong>هاتف:</strong> {{ customer.phone }}</p>
+                            <p class="product-desc"><strong>إيميل:</strong> {{ customer.email }}</p>
+                            <p class="product-desc"><strong>العنوان:</strong> {{ customer.address }}</p>
+                        </div>
+                        <div class="product-card-footer">
+                            <small style="color: #64748b;">تاريخ الانضمام: {{ customer.created_at|date:"Y-m-d" }}</small>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="empty-state-card">
+                        <p>عذراً، لا يوجد عملاء مسجلين في النظام حالياً.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <div class="empty-state-card" style="text-align: center; margin-top: 100px;">
+                <div style="font-size: 50px; margin-bottom: 20px;">🔒</div>
+                <h2>يرجى تسجيل الدخول</h2>
+                <p>لا يمكنك استعراض قائمة العملاء إلا بعد تسجيل الدخول إلى حسابك.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary" style="display: inline-block; margin-top: 20px;">الذهاب لصفحة تسجيل الدخول</a>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

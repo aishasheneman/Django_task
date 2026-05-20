@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - إبداع تك{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="form-page-wrapper animate-fade-in">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>{{ title }}</h2>
+            <a href="{% url 'product_list' %}" class="cancel-link">إلغاء</a>
+        </div>
+        
+        <form method="POST" class="main-django-form">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="django-form-row">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="field-error-msg">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <div class="form-actions-footer">
+                <a href="{% url 'product_list' %}" class="form-cancel-btn">رجوع</a>
+                <button type="submit" class="btn btn-primary form-submit-btn">حفظ المنتج</button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
