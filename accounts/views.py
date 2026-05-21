@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from rest_framework import viewsets
+from django.contrib.auth.models import User
+from .serializer import UserSerializer
 
 def register_view(request):
     if request.method == 'POST':
@@ -27,3 +30,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+
+class user_list(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
