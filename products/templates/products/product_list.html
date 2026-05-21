@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}كتالوج المنتجات الرقمية - إبداع تك{% endblock %}
+{% block title %}كتالوج منتجات عناية - عناية تك{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
@@ -13,8 +13,8 @@
         
         <div class="page-header">
             <div class="header-title-wrapper">
-                <h1>كتالوج المنتجات الرقمية</h1>
-                <p>استعرض ونظم باقاتك التفاعلية بكل سهولة وسرعة.</p>
+                <h1>كتالوج منتجات عناية</h1>
+                <p>استعرض و اختر منتجاتك بكل سهولة وسرعة.</p>
             </div>
             
             <div class="stats-container">
@@ -35,10 +35,9 @@
                 
                 <select id="categoryFilter" onchange="filterProducts()" class="filter-select">
                     <option value="الكل">جميع التصنيفات</option>
-                    <option value="تصميم واجهات">تصميم واجهات</option>
-                    <option value="برمجيات وتطبيقات">برمجيات وتطبيقات</option>
-                    <option value="استشارات رقمية">استشارات رقمية</option>
-                    <option value="خدمات سحابية">خدمات سحابية</option>
+                    <option value="عناية بالبشرة ">عناية بالبشرة</option>
+                    <option value="عناية بالشعر">عناية بالشعر</option>
+                    <option value="عناية بالوجه">عناية بالوجه</option>
                 </select>
             </div>
             

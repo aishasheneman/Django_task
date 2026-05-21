@@ -39,7 +39,6 @@ class DeliveryOrderUpdateView(LoginRequiredMixin, UpdateView):
 class DeliveryOrderDeleteView(LoginRequiredMixin, DeleteView):
     model = DeliveryOrder
     success_url = reverse_lazy('delivery_order_list')
-    # نستخدم طريقة POST فقط للحذف لضمان الأمان
     def post(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
 
